@@ -1,1 +1,0 @@
-module.exports.subjects = ["history", "tech", "space", "quirky", "nature", "human"]

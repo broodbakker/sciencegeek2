@@ -1,3 +1,0 @@
----
-naam: ontstaan leven
----

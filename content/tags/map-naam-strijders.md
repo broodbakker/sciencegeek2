@@ -1,3 +1,0 @@
----
-naam: strijders
----

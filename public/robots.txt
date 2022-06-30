@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://sciencegeek.nl/
-
-# Sitemaps
-Sitemap: https://sciencegeek.nl/sitemap.xml

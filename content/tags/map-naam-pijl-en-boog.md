@@ -1,3 +1,0 @@
----
-naam: pijl en boog
----
