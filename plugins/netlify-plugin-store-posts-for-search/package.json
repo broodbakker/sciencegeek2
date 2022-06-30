@@ -1,0 +1,25 @@
+{
+  "name": "netliy-plugin-store-posts-for-search",
+  "version": "1.0.0",
+  "description": "put markdown files in 1 json file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "netlify",
+    "netlify-plugin",
+    "build",
+    "plugins"
+  ],
+  "author": "Martijn van de Ree",
+  "license": "ISC",
+  "dependencies": {
+    "lunr": "^2.3.9",
+    "mark-twain": "^2.0.3",
+    "read-markdown": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/lunr": "^2.3.4"
+  }
+}
