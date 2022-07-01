@@ -8,7 +8,7 @@
     "func": "netlify dev",
     "build": "next build",
     "start": "next start",
-    "export": "npm run build && next export"
+    "export": "next build && next export"
   },
   "keywords": [],
   "author": "",
