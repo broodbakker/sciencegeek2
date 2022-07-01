@@ -20,9 +20,8 @@ export const HomePage: FunctionComponent<IHomePage> = ({ latestPosts, randomPost
     <main>
       <div>
         <div className="md:grid  md:grid-cols-2 md:mt-10">
-
-          {/* HeadPost */}
-          <HeadPost data={getFirstElement(latestPosts)} />
+          HeadPost
+          <HeadPost post={getFirstElement(latestPosts)} />
           <div className="md:hidden h-2 w-full bg-almostWhite"></div>
 
           {/* laatste nieuws */}
@@ -35,7 +34,7 @@ export const HomePage: FunctionComponent<IHomePage> = ({ latestPosts, randomPost
 
         <div className="hidden md:block bg-almostWhite h-0.5 w-full mt-8"></div>
 
-        {/* random posts */}
+
         <RandomBigPosts posts={randomPosts} />
       </div >
     </main >

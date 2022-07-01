@@ -2,7 +2,6 @@ const fs = require('fs');
 const blogPostsFolder = './content';
 const withPWA = require('next-pwa')
 
-
 module.exports = withPWA({
   future: {
     webpack5: true,
@@ -11,6 +10,7 @@ module.exports = withPWA({
 
   pwa: { dest: 'public' },
   webpack: configuration => {
+    configuration.resolve.fallback = { fs: false }
     configuration.module.rules.push({
       test: /\.md$/,
       loader: 'frontmatter-markdown-loader',

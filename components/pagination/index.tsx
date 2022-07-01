@@ -7,8 +7,8 @@ import { whatNumbersToshow } from "../../util/localFunctions/paginationLogic"
 import { useRouter } from 'next/router'
 
 type PaginationProps = {
-
 }
+
 const Pagination: FunctionComponent<PaginationProps> = () => {
   const router = useRouter()
 
@@ -55,8 +55,6 @@ const Pagination1: FunctionComponent<PaginationProps1> = ({ current, total, subj
               </a>
             </Link>}
 
-
-
             {/* skip  1*/}
             {current !== 1 &&
               <Link href={{
@@ -89,7 +87,6 @@ const Pagination1: FunctionComponent<PaginationProps1> = ({ current, total, subj
             {current > 3 && <a href="#" className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
               ...
             </a>}
-
 
             {paginationNumbers.map((paginationNumber) => {
               return (<Link href={{

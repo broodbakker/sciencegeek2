@@ -1,10 +1,66 @@
 const fs = require('fs')
+const { join } = require('path')
+const matter = require('gray-matter')
 
 const MT = require("mark-twain")
 
 const lunr = require("lunr")
 
 const { subjects } = require("./variables")
+
+const POSTS_PATH = "./content/posts";
+const PHOTOS_PATH = "./content/photos";
+
+const getFiles = (path) => importSlugs(path).map((slug) => getFullPost(addMdExt(slug)))
+
+const importSlugs = (filePath) =>
+  fs.readdirSync(filePath)
+    // Remove file extensions for page paths
+    .map((path) => path.replace(/\.mdx?$/, ''))
+
+
+const addMdExt = (s) => `${s}.md`
+const removeMdExt = (slug) => slug.substring(0, slug.length - 3)
+
+const getFullPost = (slug) => {
+  const post = getFileBySlug(slug, POSTS_PATH)
+
+  const tag = post.data.tags ? post.data.tags : []
+
+  return modifyPost(post, tag)
+}
+
+const getFileBySlug = (
+  slug,
+  Path
+) => {
+  const filePath = join(Path, `${slug}`);
+
+  const fileContents = fs.readFileSync(filePath);
+
+  return matter(fileContents);
+
+};
+
+const modifyPost = (post, tag) => ({
+  title: post.data.title,
+  subtitle: post.data.Subtitle || "",
+  onderwerp: post.data.onderwerp,
+  auteur: post.data.auteur,
+  tags: modifyTags(tag),
+  html: post.content,
+})
+
+const modifyTags = (tags) => {
+  return tags.length === 0 ? [] : t(tags)
+}
+
+const t = (tags) => {
+
+  return (tags[0].search(",") !== -1 && tags.length === 1) ? tags[0].split(",") : tags
+}
+
+
 
 module.exports = {
   onSuccess: () => {
@@ -24,6 +80,9 @@ module.exports = {
     fs.writeFileSync('./functions/index.json', JSON.stringify(index));
     fs.writeFileSync('./functions/postData.json', JSON.stringify(postData));
 
+    const post = getFiles(POSTS_PATH)
+
+    fs.writeFileSync('./content/searchData.json', JSON.stringify(post));
 
     try {
     } catch (error) {
@@ -31,9 +90,6 @@ module.exports = {
     }
   },
 }
-
-
-
 
 const createPostData = async (subjectNames) => {
   const PostFileNames = getPostFileNames()
@@ -116,7 +172,7 @@ const getData = (fileNames) => {
       const slug = path
       const onderwerp = markdown.meta.onderwerp
       const headerPhoto = markdown.meta.headerPhoto
-      const photos = markdown.meta["photo's"]
+      const photos = markdown.meta["photos"]
       const date = markdown.meta.date
 
       return { slug, onderwerp, headerPhoto, photos, date }
@@ -146,7 +202,7 @@ const getPosts = async (fileNames) => {
       const slug = path.substring(0, path.length - 3)
       const id = index
       const headerPhoto = markdown.meta.headerPhoto
-      const link = MT(fs.readFileSync(`./content/${"photo's"}/${headerPhoto}.md`).toString());
+      const link = MT(fs.readFileSync(`./content/${"photos"}/${headerPhoto}.md`).toString());
 
       const image = link.meta.image
       return { title, tags, content, slug, id, image, date, onderwerp }

@@ -1,15 +1,26 @@
-export { }
-// import lunr from "lunr"
+import lunr from "lunr"
 
-// import React from "react"
+import React from "react"
 
-// import axios from 'axios'
+import axios from 'axios'
 
-// type titles = {
-//   title: string
-//   tags: string[]
-//   slug: string
-// }
+type titles = {
+  title: string
+  tags: string[]
+  slug: string
+}
+
+const modifyTitle = (s: string) => s.replaceAll(' ', '-')
+
+
+import { FullPost } from "../../typescript"
+
+export const createStore = (posts: any[]) => posts.reduce((acc, post) => {
+  let { title, subtitle, image, slug } = post;
+  return { ...acc, [title]: { title, subtitle, slug, image } };
+}, {});
+
+
 
 // export const getAllPosts = async (): Promise<titles[]> => {
 //   const fileNames = getPostFileNames()
@@ -18,17 +29,17 @@ export { }
 //   return posts
 // }
 
-// const getPostTitles = async (fileNames: string[]) => {
-//   return Promise.all(
-//     fileNames.map(async path => {
-//       const markdown: any = await import(`./content/posts/${path}`);
-//       const title = markdown.attributes.title
-//       const tags = markdown.attributes.tags.join(" ");
-//       const content = markdown.html
-//       return { title, tags, content, slug: path.substring(0, path.length - 3) };
-//     })
-//   )
-// }
+// // const getPostTitles = async (fileNames: string[]) => {
+// //   return Promise.all(
+// //     fileNames.map(async path => {
+// //       const markdown: any = await import(`./content/posts/${path}`);
+// //       const title = markdown.attributes.title
+// //       const tags = markdown.attributes.tags.join(" ");
+// //       const content = markdown.html
+// //       return { title, tags, content, slug: path.substring(0, path.length - 3) };
+// //     })
+// //   )
+// // }
 
 // const getPostFileNames = (): string[] => {
 //   const Files = require.context('../content/posts', false, /\.md$/).keys()

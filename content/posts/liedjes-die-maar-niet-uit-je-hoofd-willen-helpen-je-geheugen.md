@@ -5,9 +5,6 @@ date: 2021-11-09T13:48:24.628Z
 headerPhoto: map-bron-pixabay-com-image-img-meisje-gitaar-vrolijk-jpg-onderschrift-muziek-helpt-herinneringen-te-verankeren-1
 onderwerp: human
 auteur: Monique Siemsen
-tags:
-  - oorwurmen, geheugen, muziek, herinnering, dementie, onthouden, liedje in je
-    hoofd, liedje, onderzoek, wetenschap
 photo's: []
 ---
 Nummers die maar in je kop blijven zitten: kapot irritant soms. Maar zij zijn ook buitengewoon nuttig, want ze helpen je belangrijke gebeurtenissen te herinneren.

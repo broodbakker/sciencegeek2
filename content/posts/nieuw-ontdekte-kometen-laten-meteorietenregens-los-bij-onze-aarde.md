@@ -1,6 +1,6 @@
 ---
 templateKey: post.template
-title: Nieuw ontdekte kometen zorgen voor meteorietenregen op aarde
+title: Nieuw ontdekte kometen laten meteorietenregens los bij onze aarde
 date: 2021-06-11T15:29:47.693Z
 headerPhoto: map-onderschrift-ruimte-horizon-meteorieten-bron-pixabay-com-coolvid-shows-image-img-ruimte-horizon-meteorieten-jpg
 onderwerp: space

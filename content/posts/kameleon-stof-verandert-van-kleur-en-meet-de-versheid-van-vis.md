@@ -1,6 +1,6 @@
 ---
 templateKey: post.template
-title: Nieuwe stof verandert van kleur en meet de versheid van vis
+title: Kameleon-stof verandert van kleur en meet de versheid van vis
 date: 2021-06-11T15:23:04.867Z
 headerPhoto: map-bron-pixabay-com-jj01-onderschrift-kameleon-dichtbij-groen-image-img-kameleon-dichtbij-groen-jpg-1
 onderwerp: tech

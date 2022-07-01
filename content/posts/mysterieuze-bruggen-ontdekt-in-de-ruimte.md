@@ -1,6 +1,6 @@
 ---
 templateKey: post.template
-title: Mysterieuze bruggen ontdekt tussen de sterrenstelsels
+title: Mysterieuze bruggen ontdekt in de ruimte
 date: 2021-06-11T15:34:20.704Z
 headerPhoto: map-bron-pixabay-com-eli007-image-img-planeten-verbinding-lichtstraal-jpg-onderschrift-planeten-verbinding-lichtstraal
 onderwerp: space

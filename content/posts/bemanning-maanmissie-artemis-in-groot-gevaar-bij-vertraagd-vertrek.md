@@ -1,6 +1,6 @@
 ---
 templateKey: post.template
-title: Bemanning maanmissie Artemis in gevaar bij vertraagd vertrek
+title: Bemanning maanmissie Artemis in groot gevaar bij vertraagd vertrek
 date: 2021-06-11T15:37:30.633Z
 headerPhoto: map-bron-pixabay-com-photo-graphe-onderschrift-maan-zee-maanlicht-image-img-maan-zee-maanlicht-jpg
 onderwerp: space

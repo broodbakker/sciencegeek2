@@ -1,6 +1,6 @@
 ---
 templateKey: post.template
-title: Kijken naar talent-shows slecht voor moraal van kids
+title: Kijken naar talent-shows slecht voor kids
 date: 2021-06-17T15:40:19.959Z
 headerPhoto: map-onderschrift-zanger-gitaar-microfoon-bron-pixabay-com-image-img-zanger-gitaar-microfoon-jpg
 onderwerp: human

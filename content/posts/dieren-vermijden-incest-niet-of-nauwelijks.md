@@ -1,13 +1,14 @@
 ---
 templateKey: post.template
-title: Dieren vermijden incest niet of geven het zelfs de voorkeur
+title: Dieren vermijden incest niet of nauwelijks
 date: 2021-06-11T16:00:43.063Z
 headerPhoto: map-bron-pixabay-com-sasint-onderschrift-van-bonobos-weten-we-al-langer-dat-zij-niet-aan-incestmijding-doen-wetenschappers-vermoeden-dat-de-bonobo-daarmee-niet-bepaald-de-enige-diersoort-is-image-img-bonobo-sociaal-partner-jpg
 onderwerp: quirky
 auteur: Monique Siemsen
 tags:
-  - "incest dieren incestmijding partnerkeuze partnervorming onderzoek
-    wetenschap familie "
+  - incestmijding
+  - partnerkeuze
+  - inteelt
 photo's: []
 ---
 Dieren maken lang niet zo’n probleem van inteelt als biologen tientallen jaren beweerd hebben. Sterker nog: als rechtgeaard zoogdier heeft de mens zelf waarschijnlijk ook niet al te veel bezwaren tegen één van de grootste taboes die we nog steeds koesteren.

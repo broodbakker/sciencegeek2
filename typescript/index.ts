@@ -1,7 +1,7 @@
 import { FormikProps } from "formik";
 
 export type Import = {
-  attributes: DataPhotos
+  attributes: photoData
   html: any
   default: any
 }
@@ -25,21 +25,21 @@ export interface PostData {
   photos?: any
 }
 
-export interface DataPhotos {
+export interface photoData {
   onderschrift: string
   bron: string
   image: string
 }
 
-export interface DataPhotosTotal {
-  headerData: DataPhotos
-  photosData: DataPhotos[]
+export interface photoDataTotal {
+  headerData: photoData
+  photosData: photoData[]
 }
 
 
 export type SpecificPhotos1 = {
-  headerData: DataPhotos;
-  photosData: DataPhotos[];
+  headerData: photoData;
+  photosData: photoData[];
 }
 
 export type SpecificPhotos = {
@@ -68,12 +68,12 @@ export interface Point1 {
 export type FullPost = {
   title: string
   subtitle?: string
-  date: Date
+  date: string
   onderwerp: string
   auteur: string
   tags: string[]
   html: string
-  photos: SpecificPhotos1
+  photos: photoData[]
   slug: string
 }
 

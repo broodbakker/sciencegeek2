@@ -3,11 +3,11 @@ import React, { FunctionComponent } from 'react'
 import { HomePage } from "../components/templates/homePage"
 import { SeoHeader } from '../components/seoHeader';
 //functions
-import { getPosts, getRandomPosts } from "../util/localFunctions/importPosts";
+import { getPosts, getRandomPosts, getFilesAmount } from "../util/localFunctions/importPosts";
 //typescript
 import { FullPost } from "../typescript"
 //variables
-import { AMOUNT_OF_POST_FRONTPAGE, AMOUNT_OF_RANDOM_POST_FRONTPAGE, LAATSTE_NIEUWS } from "../public/variables"
+import { POSTS_PATH } from "../public/variables"
 
 type HomeProps = {
   latestPosts: FullPost[],
@@ -17,24 +17,20 @@ type HomeProps = {
 const Home: FunctionComponent<HomeProps> = ({ latestPosts, randomPosts }) => {
   return (
     <>
-
-      {/* <SeoHeader subtitle="ScienceGeek brengt internationaal en binnenlands wetenschappelijk nieuws." />
-      <HomePage latestPosts={latestPosts} randomPosts={randomPosts} /> */}
+      <SeoHeader subtitle="ScienceGeek brengt internationaal en binnenlands wetenschappelijk nieuws." />
+      <HomePage latestPosts={latestPosts} randomPosts={randomPosts} />
     </>
   )
 }
 
 export async function getStaticProps() {
-  console.log("test")
-  const latestPosts = await getPosts(AMOUNT_OF_POST_FRONTPAGE)
+  const latestPosts = await getFilesAmount(POSTS_PATH, 6)
 
-  const test = await import(`../content/posts/extreem-andersdenkende-heeft-moeite-met-onzekerheid.md`)
+  const randomPosts = await getRandomPosts(4)
 
-  console.log(test)
 
-  // console.log("latestPosts", latestPosts)
-  // const randomPosts = await getRandomPosts(AMOUNT_OF_RANDOM_POST_FRONTPAGE)
-  return { props: { a: 4 } }
+
+  return { props: { latestPosts, randomPosts } }
 }
 
 export default Home;

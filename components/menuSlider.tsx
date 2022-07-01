@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import Link from "next/link";
 
 //hooks
-import { useKeyPress } from "../hooks/useKeyPress"
+import { useKeyPress } from "../util/hooks/useKeyPress"
 
 export const MenuSlider = () => {
   const { state, dispatch } = useIsMenuOpen()

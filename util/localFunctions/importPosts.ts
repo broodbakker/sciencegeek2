@@ -1,6 +1,11 @@
 import * as R from "ramda";
+
+import fs from 'fs'
+import { join } from 'path';
+import matter from 'gray-matter';
+
 //typescript
-import { PostData, PostMeta, DataPhotos, Import, FullPost, SpecificPhotos, SpecificPhotos1, Num, Point, Point1 } from "../../typescript"
+import { PostData, PostMeta, photoData, Import, FullPost, SpecificPhotos, SpecificPhotos1, Num, Point, Point1 } from "../../typescript"
 //helper
 import { convertNumberToArray, getShuffle } from "./helperFunc"
 import { NUMBER_OF_POST_ON_PAGE } from "../../public/variables"
@@ -9,82 +14,136 @@ import { modifyTags } from "./modifyTags"
 //data
 import data from "../../functions/postData.json"
 const postMeta: PostMeta = JSON.parse(JSON.stringify(data));
+//constants
+import { POSTS_PATH, PHOTOS_PATH } from "../../public/variables"
 
-export const importPost = async (path: string): Promise<PostData> => await import(`../content/posts/${path}`)
+export const importMdFiles = (filePath: string) => fs
+  .readdirSync(filePath)
+  // Remove file extensions for page paths
+  .map((path) => path.replace(/\.md?$/, ''))
+  // Map the path into the static paths object required by Next.js
+  .map((slug) => ({ params: { slug } }));
 
-export const importPhoto = async (path: string): Promise<Import> =>
-  await import(`../content/${"photo's"}/${path}.md`)
+export const getFiles = (path: string) => importSlugs(path).map((slug) => getFullPost(addMdExt(slug)))
 
-const importPhoto1 = async (obj: any): Promise<DataPhotos> => {
-  const photo = await importPhoto(obj)
-  return photo.attributes
+export const getFilesForSearchIndex = (path: string) => importSlugs(path).map((slug) => getFileBySlug(slug, path))
+
+export const getFilesAmount = (path: string, amountOfFiles: number) => getFiles(path).slice(-amountOfFiles);
+
+const importSlugs = (filePath: string) =>
+  fs.readdirSync(filePath)
+    // Remove file extensions for page paths
+    .map((path) => path.replace(/\.mdx?$/, ''))
+
+const putSlugInData = (slug: string, product: any) => ({ ...product, slug })
+
+export const getFilesByPath = (slugs: string[], path: string) =>
+  slugs.map((slug) => getFileByPath(slug, path))
+
+
+export const getFileBySlug = (
+  slug: string,
+  Path: string
+): any => {
+
+  const filePath = join(Path, `${slug}`);
+
+  const fileContents = fs.readFileSync(filePath);
+
+  return matter(fileContents);
+
+};
+
+export const getPhotoByPath = (
+  slug: string,
+  Path: string
+): any => {
+
+  const filePath = join(Path, `${slug}.md`);
+
+
+  const fileContents = fs.readFileSync(filePath);
+
+  return matter(fileContents);
+
+};
+
+export const getFileByPath = (
+  slug: string,
+  path: string
+): any => {
+
+  const filePath = join(path, `${slug}`);
+
+  const fileContents = fs.readFileSync(filePath);
+
+  return matter(fileContents);
+
+};
+
+const changeDate = (date: Date) => date.toLocaleDateString()
+
+// export const importPost = async (path: string): Promise<PostData> => {
+//   const post = await import(`../content/posts/${path}`)
+//   return post
+// }
+
+// export const importPhoto = async (path: string): Promise<Import> =>
+//   await import(`../content/${"photo's"}/${path}.md`)
+
+const importPhoto = (obj: string): any => {
+  const photo = getPhotoByPath(obj, PHOTOS_PATH)
+  return photo.data
 }
 
-export const importPhotos = async (paths: string[]) =>
-  await Promise.all(paths.map(async (path) => importPhoto1(path)))
+export const importPhotos = (paths: string[]) =>
+  paths.map((path) => importPhoto(path))
 
 const getSubsetPosts = (files: string[], numberOfPosts: number,) => files.slice(0, numberOfPosts);
 
-export const getPosts = async (amountOfPosts: number, sortSubject: string = "all"): Promise<PostData[]> => {
-  console.log("test1")
+export const getPosts = (amountOfPosts: number, sortSubject: string = "all") => {
 
   const postsSortedBySubject = sortSubject === "all" ? data.FileNames : postMeta.postPerSubject[sortSubject]
 
-
-
-
   const sortedSlugsByData = sortPostsByDate(postsSortedBySubject)
 
-  const slugs = await getSubsetPosts(sortedSlugsByData, amountOfPosts)
+  const slugs = getSubsetPosts(sortedSlugsByData, amountOfPosts)
 
-
-
-
-
-
-  return JSON.parse(JSON.stringify(slugs));
+  return slugs.map(getFullPost)
 }
 
+const importPosts = (postNames: string[]): Promise<FullPost[]> =>
+  Promise.all(postNames.map(getFullPost))
+
+
+const addMdExt = (s: string) => `${s}.md`
 const removeMdExt = (slug: string) => slug.substring(0, slug.length - 3)
 
-const importPosts = async (postNames: string[]): Promise<FullPost[]> =>
-  await Promise.all(postNames.map(getFullPost))
+export const getFullPost = (slug: string) => {
+  const post = getFileBySlug(slug, POSTS_PATH)
 
+  const headPhotoFileName = postMeta.postMeta[slug].headerPhoto
 
-const modifyPost = (post: PostData, photos: SpecificPhotos1, slug: string, tag: any[]): FullPost => ({
-  title: post.attributes.title,
-  subtitle: post.attributes.Subtitle || "",
-  date: post.attributes.date,
-  onderwerp: post.attributes.onderwerp,
-  auteur: post.attributes.auteur,
-  tags: modifyTags(tag),
-  html: post.html,
-  photos,
-  slug
-})
+  const tag = post.data.tags ? post.data.tags : []
 
-export const getFullPost = async (slug: string) => {
-  const post = await importPost(slug)
+  const headPhoto = importPhoto(headPhotoFileName)
 
-  const headerData = postMeta.postMeta[slug].headerPhoto
-  const photosData = postMeta.postMeta[slug].photos
-
-
-  const tag = post.attributes.tags ? post.attributes.tags : []
-
-  const photos: any = await getSpecificPhoto({ headerData, photosData })
-
-  const p1: any = photos.photosData ? photos : {
-    headerData: photos.headerData, photosData: []
-  }
-
-  return modifyPost(post, p1, removeMdExt(slug), tag)
+  return modifyPost(post, [headPhoto], slug, tag)
 }
 
-const test = async (photosData: any) => photosData ? photosData.length !== 0 && importPhotos(photosData) : []
+const modifyPost = (post: any, photos: photoData[], slug: string, tag: any[]): FullPost => ({
+  title: post.data.title,
+  subtitle: post.data.Subtitle || "",
+  date: changeDate(post.data.date),
+  onderwerp: post.data.onderwerp,
+  auteur: post.data.auteur,
+  tags: modifyTags(tag),
+  html: post.content,
+  photos,
+  slug: removeMdExt(slug)
+})
 
-export const getSpecificPhoto = async ({ headerData, photosData }: SpecificPhotos) =>
-  ({ headerData: await importPhoto1(headerData), photosData: await test(photosData) })
+
 
 const getNumberOfPages1 = (subjectName: string) => convertNumberToArray(getNumberOfPages(subjectName))
 
@@ -98,7 +157,7 @@ const getSubjectPath = (subjectName: string) => getNumberOfPages1(subjectName).m
 export const getSubjectPaths = ({ subjectNames }: PostMeta) =>
   [...subjectNames.map(getSubjectPath), getSubjectPath("all")].flat()
 
-export const getPropsFromPaths = async (slugName: string, slugId: string) => {
+export const getPropsFromPaths = (slugName: string, slugId: string) => {
   const sortedSlugs = sortPostsByDate(sortPostsBySubject(slugName, postMeta))
 
   const specificPosts = getSpecificPosts(sortedSlugs, postNumbers(slugId))
@@ -168,22 +227,25 @@ const sortPostsByDate = (slugs: string[]) => {
   return R.reverse(ra)
 }
 
-const getRandomPaths = (amountOfPosts: number, totalPosts: number, postsBySubject: string[]) =>
-  getPaths(getRandomNumbers(totalPosts, amountOfPosts), postsBySubject)
+const getRandomPaths = (amountOfPosts: number, totalPosts: number, postsBySubject: string[]) => {
+
+  return getPaths(getRandomNumbers(totalPosts, amountOfPosts), postsBySubject)
+}
+
 
 const getPaths = (PostNumbers: number[], AllPostPaths: string[]) =>
   PostNumbers.map((postNumber) => AllPostPaths[postNumber])
 
-export const getRandomPostBySubject = async (amountOfPosts: number, subject: string, postMeta: PostMeta) => {
+export const getRandomPostBySubject = (amountOfPosts: number, subject: string, postMeta: PostMeta) => {
   const paths = getRandomPaths(amountOfPosts, postMeta.postPerSubject[subject].length, postMeta.postPerSubject[subject])
 
-  return await importPosts(paths)
+  return importPosts(paths)
 }
 
-export const getRandomPosts = async (numberOfPost: number = 1): Promise<FullPost[]> => {
+export const getRandomPosts = (numberOfPost: number = 1) => {
   const paths = getRandomPaths(numberOfPost, postMeta.amountOfPosts, postMeta.FileNames)
 
-  return await importPosts(paths)
+  return paths.map(getFullPost)
 }
 
 export const importPostSlugs = (postMeta: PostMeta) =>
@@ -192,3 +254,7 @@ export const importPostSlugs = (postMeta: PostMeta) =>
 export const getNumberOfPages = (subject: string) => Math.ceil(getNumberOfPosts(subject, postMeta) / NUMBER_OF_POST_ON_PAGE)
 
 const getNumberOfPosts = (subject: string, postMeta: PostMeta) => subject === "all" ? postMeta.amountOfPosts : postMeta.amountOfPostPerSubject[subject]
+
+export const makePostParam = (slug: string) => ({
+  params: { post: slug },
+})

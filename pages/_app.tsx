@@ -35,12 +35,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   }, [router.events]);
 
+  const Component1 = Component as any;
+
   return (
     <>
       <IsMenuOpenProvider>
         <IsSearchMenuOpenProvider>
           <Layout>
-            <Component {...pageProps} />
+            <Component1 {...pageProps} />
           </Layout>
         </IsSearchMenuOpenProvider>
       </IsMenuOpenProvider>

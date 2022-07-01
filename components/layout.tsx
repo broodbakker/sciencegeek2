@@ -11,6 +11,7 @@ import { useIsMenuOpen } from '../state/isMenuOpen'
 import { useIsSearchMenuOpen } from '../state/isSearchMenuOpen'
 
 type LayoutProps = {
+  children?: React.ReactNode;
 }
 
 export const Layout: FunctionComponent<LayoutProps> = ({ children }) => {

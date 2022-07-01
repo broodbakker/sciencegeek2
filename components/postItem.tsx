@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import Link from "next/link";
 //hooks
-import useTimeLeft from "../hooks/useTimeLeft"
+import useTimeLeft from "../util/hooks/useTimeLeft"
 //typescript
 import { FullPost } from "../typescript"
 import { formatDate } from "../util/localFunctions/formatdate"
@@ -15,8 +15,7 @@ type PostProps = {
 export const PostItem: FunctionComponent<PostProps> = ({ post }) => {
   const timeLeft = useTimeLeft(TIME_TILL_HIDDEN_BG)
 
-  const image = post.photos.headerData.image
-  const image1 = `img/meisje-gitaar-vrolijk.jpg`
+  const image = post.photos[0].image
   return (
     <Link href={`/${post.slug}`} as={`/${post.slug}`}>
       <a className="w-full focus:outline-none flex-shrink-0">
@@ -59,6 +58,8 @@ type postProps1 = {
 
 
 export const PostItem1: FunctionComponent<postProps1> = ({ slug, image, title, onderwerp, date }) => {
+
+  console.log("slug", slug)
   const newDate: string = formatDate(date)
 
   const timeLeft = useTimeLeft(3)
@@ -85,7 +86,7 @@ export const PostItem1: FunctionComponent<postProps1> = ({ slug, image, title, o
               <h2 className="text-lg font-medium leading-6">
                 {title}
               </h2>
-              <time className="absolute bottom-1 text-xs text-grey"> {newDate}</time>
+
             </div>
           </div>
         </article>
@@ -111,7 +112,7 @@ export const PostItem2: FunctionComponent<postProps2> = ({ post }) => {
             {timeLeft !== 0 && <div className="absolute inset-0 w-full h-full object-cover bg-loadingImage"></div>}
 
             <img
-              src={`${post.photos.headerData.image}`}
+              src={`${post.photos[0].image}`}
               alt={post.title}
               className="absolute inset-0 w-full h-full object-cover"
             />

@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react'
 import { PostItem2 } from "../components/postItem"
 //typescript
 import { FullPost } from "../typescript"
-import {RANDOM_BIG_POSTS}  from "../public/variables"
+import { RANDOM_BIG_POSTS } from "../public/variables"
 
 type RandomProps = {
   posts: FullPost[],
@@ -17,7 +17,7 @@ export const RandomBigPosts: FunctionComponent<RandomProps> = ({ posts }) => {
       </div>
 
       <div className="hidden md:block md:grid  md:grid-cols-3 pb-10 mt-2">
-        {posts.map((post: FullPost, id: number) =>  <PostItem2 post={post} key={id} />)}
+        {posts.map((post: FullPost, id: number) => <PostItem2 post={post} key={id} />)}
       </div>
     </div>
   )

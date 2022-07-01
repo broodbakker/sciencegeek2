@@ -1,15 +1,17 @@
 export const NAV_NAMES = ["Home", "History", "Nature", "Human", "Quirky", "Space", "Tech"]
 export const NAV_LINKS = ["/", "/history", "/nature", "/human", "/quirky", "/space", "/tech"]
+export const POSTS_PATH = "./content/posts";
+export const PHOTOS_PATH = "./content/photos";
 export const NUMBER_OF_POST_ON_PAGE = 6
 export const AMOUNT_OF_POST_FRONTPAGE = 10
 export const AMOUNT_OF_RANDOM_POST_FRONTPAGE = 6
 export const TIME_TILL_HIDDEN_BG = 3
 
-export const LAATSTE_NIEUWS = {
+
+export const LAATSTE_NIEUWS: { [key: string]: any } = {
   title: "Het laatste nieuws op ScienceGeek!",
   link: "/net-binnen/all/1",
   linkText: "Meer net binnen",
-
   history: {
     title: "Het laatste history nieuws!",
     link: "/net-binnen/history/1",

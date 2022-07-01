@@ -13,6 +13,7 @@ type LaatsteNieuwsProps = {
 }
 
 export const LaatsteNieuws: FunctionComponent<LaatsteNieuwsProps> = ({ posts, title, LinkNaarMeerPostsText, LinkNaarMeerPosts }) => {
+
   return (
     <div className="mb-10 md:mb-0">
       <div className="md:h-96 md:overflow-auto">
