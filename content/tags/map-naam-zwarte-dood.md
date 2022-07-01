@@ -1,3 +1,0 @@
----
-naam: zwarte dood
----

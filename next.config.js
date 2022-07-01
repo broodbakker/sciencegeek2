@@ -7,7 +7,6 @@ module.exports = withPWA({
     webpack5: true,
   },
 
-  distDir: 'out',
   pwa: { dest: 'public' },
   webpack: configuration => {
     configuration.resolve.fallback = { fs: false }

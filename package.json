@@ -1,12 +1,12 @@
 {
-  "name": "science_geek",
+  "name": "sciencegeek2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "func": "netlify dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "export": "next build && next export"
   },
