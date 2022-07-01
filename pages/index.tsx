@@ -26,11 +26,11 @@ const Home: FunctionComponent<HomeProps> = ({ latestPosts, randomPosts }) => {
 export async function getStaticProps() {
   const latestPosts = await getFilesAmount(POSTS_PATH, 6)
 
-  const randomPosts = await getRandomPosts(4)
+  //const randomPosts = await getRandomPosts(4)
 
 
 
-  return { props: { latestPosts, randomPosts } }
+  return { props: { latestPosts, randomPosts: latestPosts } }
 }
 
 export default Home;
